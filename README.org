@@ -1,0 +1,75 @@
+* Date-Gen
+  Randomized date generation supporting CSV output.
+
+** Getting Started
+   Declare your dependencies in a [[https://clojure.org/guides/deps_and_cli][deps.edn]] file.
+   #+BEGIN_SRC clojure
+{:deps {conjunctive/date-gen {:git/url "https://github.com/conjunctive/date-gen"
+                              :sha ""}}}
+   #+END_SRC
+
+   Start a Clojure REPL.
+   #+BEGIN_SRC sh
+$ clj
+   #+END_SRC
+
+   Require this library.
+   #+BEGIN_SRC clojure
+(require '[date-gen.core :as date-gen])
+   #+END_SRC
+
+   Optionally, require [[https://github.com/jeaye/orchestra][orchestra]] and instrument the specs.
+   This will improve feedback during development time.
+   #+BEGIN_SRC clojure
+(require '[orchestra.spec.test :as st])
+(st/instrument)
+   #+END_SRC
+
+   Define a collection of date formats.
+   #+BEGIN_SRC clojure
+(def date-formats
+  ["yyyyMMdd"
+   "MMMM dd, yyyy"
+   "mmmm d, yyyy"
+   "MM/dd/yyyy h:mm:ss a"
+   "MM/dd/yyyy hh:mm:ss a"
+   "d-M-yy"])
+   #+END_SRC
+
+   Generate a map associating a date format to two randomized dates.
+   #+BEGIN_SRC clojure
+(date-gen/format->random-dates 2 date-formats)
+;; => {"yyyyMMdd"              ["\"19701112\""
+;;                              "\"19930804\""],
+;;     "MMMM dd, yyyy"         ["\"November 12, 2002\""
+;;                              "\"December 02, 1993\""],
+;;     "mmmm d, yyyy"          ["\"0047 16, 1998\""
+;;                              "\"0034 2, 1995\""],
+;;     "MM/dd/yyyy h:mm:ss a"  ["\"11/17/1973 5:03:47 AM\""
+;;                              "\"01/28/1985 9:14:16 PM\""],
+;;     "MM/dd/yyyy hh:mm:ss a" ["\"08/29/1993 09:22:30 PM\""
+;;                              "\"10/03/1990 02:35:24 PM\""],
+;;     "d-M-yy"                ["\"23-6-78\""
+;;                              "\"7-6-82\""]}
+   #+END_SRC
+
+   Generate a sequence of strings, each containing
+   a date format and three randomized dates.
+   #+BEGIN_SRC clojure
+(date-gen/random-dates-by-line 3 date-formats)
+;; => ("\"yyyyMMdd\", \"19990904\", \"19710512\", \"19980413\""
+;;     "\"MMMM dd, yyyy\", \"November 20, 2010\", \"February 26, 1972\", \"December 30, 1970\""
+;;     "\"mmmm d, yyyy\", \"0021 7, 1986\", \"0007 8, 1985\", \"0040 19, 1983\""
+;;     "\"MM/dd/yyyy h:mm:ss a\", \"01/12/2002 3:08:44 PM\", \"04/07/1974 2:57:51 PM\", \"06/02/1995 11:48:36 AM\""
+;;     "\"MM/dd/yyyy hh:mm:ss a\", \"12/30/2001 02:06:12 PM\", \"08/11/2012 01:10:24 AM\", \"01/21/1993 12:08:35 AM\""
+;;     "\"d-M-yy\", \"1-1-00\", \"1-4-14\", \"6-9-92\"")
+   #+END_SRC
+
+   Generate a CSV file, where each data record contains
+   the date format followed by 1000 randomized dates.
+   #+BEGIN_SRC clojure
+(date-gen/random-dates-csv "test.csv" 1000 date-formats)
+   #+END_SRC
+
+** License
+   This project is licensed under the MIT License.

@@ -1,0 +1,5 @@
+{:paths ["src"]
+ :deps {org.clojure/test.check {:mvn/version "0.10.0"}
+        orchestra {:mvn/version "2020.07.12-1"}
+        ;; FIXME: Use upstream when this PR is merged
+        org.clojars.guv/xforms {:mvn/version "0.19.3"}}}
