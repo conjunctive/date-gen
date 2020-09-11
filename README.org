@@ -5,7 +5,7 @@
    Declare your dependencies in a [[https://clojure.org/guides/deps_and_cli][deps.edn]] file.
    #+BEGIN_SRC clojure
 {:deps {conjunctive/date-gen {:git/url "https://github.com/conjunctive/date-gen"
-                              :sha ""}}}
+                              :sha "f4b642706f571346c2178f323f66a026a9ee79c6"}}}
    #+END_SRC
 
    Start a Clojure REPL.
